@@ -20,7 +20,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -32,7 +32,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-beta03"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
     kotlinOptions {
         jvmTarget = "21"
