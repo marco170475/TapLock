@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">TapLock - Screen Lock Widget</string>
+    <string name="app_name_short">TapLock</string>
+    <string name="shared_pref_name">com.ah.taplock.SHARED_PREFERENCES_Key</string>
+    <string name="double_tap_timeout">double_tap_timeout</string>
+    <string name="accessibility_service_description">The TapLock accessibility service is necessary to be able to power off the screen.</string>
+    <string name="home_screen_description">This app lets you add a resizeable transparent widget to your home screen. When you double click it, your phone will lock! \n\nPlease grant accessibility permissions so that the app knows when you are trying to double tap.</string>
+    <string name="home_screen_disclaimer">Personal information is not collected, and the app does not have access to any of your data. You can visit the link below to see the source code:</string>
+    <string name="home_screen_instructions">To add the widget, please go to your home screen, long-press on empty space, and find the TapLock widget.</string>
+    <string name="github_url">https://github.com/modelorona/TapLock</string>
+    <string name="required_permissions">Required Permissions</string>
+    <string name="accessibility_service">Accessibility Service</string>
+    <string name="timeout_updated">Timeout updated</string>
+    <string name="update">Update</string>
+    <string name="timeout_label">Double Tap Timeout (ms)</string>
+    <string name="clear_value">Clear</string>
+    <string name="settings_label">Settings</string>
+    <string name="enable">Enable</string>
+    <string name="enabled">Enabled</string>
+</resources>
