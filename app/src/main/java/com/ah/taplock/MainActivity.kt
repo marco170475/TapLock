@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -92,12 +93,11 @@ fun TapLockScreen() {
     }
 
     val uriHandler = LocalUriHandler.current
-    val annotatedString = buildAnnotatedString {
+    val disclaimerString = buildAnnotatedString {
         append(stringResource(R.string.home_screen_disclaimer))
         append(" ")
         pushStringAnnotation(tag="URL", annotation = githubUrl)
         withStyle(style = SpanStyle(
-            color = MaterialTheme.colorScheme.primary,
             textDecoration = TextDecoration.Underline
         )) {
             append(githubUrl)
@@ -126,11 +126,6 @@ fun TapLockScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text(
-            text = stringResource(R.string.app_name_short),
-            style = MaterialTheme.typography.headlineLarge,
-        )
-
         Card(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -140,14 +135,7 @@ fun TapLockScreen() {
             ) {
                 Text(
                     stringResource(R.string.home_screen_description),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                Text(
-                    annotatedString,
-                    modifier = Modifier.clickable {
-                        uriHandler.openUri(githubUrl)
-                    },
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }
@@ -161,7 +149,24 @@ fun TapLockScreen() {
             ) {
                 Text(
                     stringResource(R.string.home_screen_instructions),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        }
+
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    disclaimerString,
+                    modifier = Modifier.clickable {
+                        uriHandler.openUri(githubUrl)
+                    },
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }
@@ -188,7 +193,10 @@ fun TapLockScreen() {
                         onClick = {
                             context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
                         },
-                        enabled = !isAccessibilityEnabled
+                        enabled = !isAccessibilityEnabled,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.tertiary
+                        )
                     ) {
                         Text(text = if (isAccessibilityEnabled) stringResource(R.string.enabled) else stringResource(R.string.enable))
                     }
@@ -221,7 +229,9 @@ fun TapLockScreen() {
                         },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        modifier = Modifier.weight(1f).focusRequester(focusRequester),
+                        modifier = Modifier
+                            .weight(1f)
+                            .focusRequester(focusRequester),
                         trailingIcon = {
                             if (timeoutValue.isNotEmpty()) {
                                 IconButton(onClick = { timeoutValue = "" }) {

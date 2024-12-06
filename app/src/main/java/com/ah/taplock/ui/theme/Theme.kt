@@ -10,15 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = MidnightGreen,
+    secondary = CarolinaBlue,
+    tertiary = MountbattenPink
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = MidnightGreen,
+    secondary = CarolinaBlue,
+    tertiary = MountbattenPink
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -43,7 +43,6 @@ fun TapLockTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
