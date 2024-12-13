@@ -5,6 +5,8 @@
 [![Latest Release](https://img.shields.io/badge/version-1.0-blue)](https://github.com/modelorona/TapLock/releases)
 [![Kotlin](https://img.shields.io/badge/kotlin-1.9.21-purple.svg)](https://kotlinlang.org)
 [![Android Studio](https://img.shields.io/badge/Android%20Studio-Hedgehog-green.svg)](https://developer.android.com/studio)
+![Static Badge](https://img.shields.io/badge/Download_It-Play_Store-green?link=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.ah.taplock)
+
 
 <img src="app/src/main/ic_launcher-playstore.png" width="256" style="display: block; margin: auto;" alt="TapLock Logo">
 
