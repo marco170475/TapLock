@@ -1,5 +1,4 @@
 # TapLock
-# TapLock
 
 [![API](https://img.shields.io/badge/API-31%2B-brightgreen.svg)](https://android-arsenal.com/api?level=31)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -7,7 +6,7 @@
 [![Kotlin](https://img.shields.io/badge/kotlin-1.9.21-purple.svg)](https://kotlinlang.org)
 [![Android Studio](https://img.shields.io/badge/Android%20Studio-Hedgehog-green.svg)](https://developer.android.com/studio)
 
-<img src="app/src/main/ic_launcher-playstore.png" width="512" alt="TapLock Logo">
+<img src="app/src/main/ic_launcher-playstore.png" width="256" style="display: block; margin: auto;" alt="TapLock Logo">
 
 A minimalist Android widget that lets you lock your screen with a double tap. Perfect for one-handed use and quick screen locking.
 
