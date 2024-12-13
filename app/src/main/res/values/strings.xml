@@ -17,4 +17,8 @@
     <string name="settings_label">Settings</string>
     <string name="enable">Enable</string>
     <string name="enabled">Enabled</string>
+    <string name="accessibility_permission_title">Accessibility Permission Required</string>
+    <string name="accessibility_permission_description">TapLock needs accessibility services to detect double taps and lock the screen. TapLock does not collect any other data or interaction that you have with your device.</string>
+    <string name="agree">Agree</string>
+    <string name="not_now">Not now</string>
 </resources>

@@ -19,6 +19,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -26,6 +27,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -78,6 +80,7 @@ fun TapLockScreen() {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
+    var showDialog by remember { mutableStateOf(false) } //
 
     var isAccessibilityEnabled by remember {
         mutableStateOf(isAccessibilityEnabled(context))
@@ -189,9 +192,7 @@ fun TapLockScreen() {
                 ) {
                     Text(stringResource(R.string.accessibility_service), modifier = Modifier.weight(1f))
                     Button(
-                        onClick = {
-                            context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-                        },
+                        onClick = { showDialog = true },
                         enabled = !isAccessibilityEnabled,
                     ) {
                         Text(text = if (isAccessibilityEnabled) stringResource(R.string.enabled) else stringResource(R.string.enable))
@@ -253,6 +254,31 @@ fun TapLockScreen() {
                     }
                 }
             }
+        }
+
+        if (showDialog) {
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                title = { Text(stringResource(R.string.accessibility_permission_title)) },
+                text = { Text(stringResource(R.string.accessibility_permission_description)) },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            showDialog = false
+                            context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                        }
+                    ) {
+                        Text(stringResource(R.string.agree))
+                    }
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = { showDialog = false }
+                    ) {
+                        Text(stringResource(R.string.not_now))
+                    }
+                }
+            )
         }
     }
 }
