@@ -6,14 +6,14 @@ plugins {
 
 android {
     namespace = "com.ah.taplock"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.ah.taplock"
         minSdk = 31
-        targetSdk = 34
-        versionCode = 4
-        versionName = "1.0"
+        targetSdk = 36
+        versionCode = 5
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
