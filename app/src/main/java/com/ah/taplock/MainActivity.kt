@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -54,6 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.ah.taplock.ui.theme.TapLockTheme
+import androidx.core.content.edit
 
 class MainActivity : ComponentActivity() {
 
@@ -124,8 +126,9 @@ fun TapLockScreen() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+            .statusBarsPadding()
+            .padding(8.dp),
+        horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Card(
@@ -242,9 +245,12 @@ fun TapLockScreen() {
                         enabled = timeoutValue.isNotEmpty(),
                         onClick = {
                             context.getSharedPreferences(R.string.shared_pref_name.toString(), Context.MODE_PRIVATE)
-                                .edit()
-                                .putInt(context.getString(R.string.double_tap_timeout), timeoutValue.toInt())
-                                .apply()
+                                .edit {
+                                    putInt(
+                                        context.getString(R.string.double_tap_timeout),
+                                        timeoutValue.toInt()
+                                    )
+                                }
                             Toast.makeText(context, context.getString(R.string.timeout_updated), Toast.LENGTH_SHORT).show()
                             keyboardController?.hide()
                             focusManager.clearFocus()

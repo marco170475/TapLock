@@ -32,10 +32,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
-    }
-    kotlinOptions {
-        jvmTarget = "21"
+        kotlinCompilerExtensionVersion = libs.versions.composeBom.get()
     }
     buildFeatures {
         compose = true
