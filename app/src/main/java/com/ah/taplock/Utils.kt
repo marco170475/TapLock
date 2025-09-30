@@ -1,5 +1,6 @@
 package com.ah.taplock
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -7,6 +8,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.provider.Settings
+import androidx.annotation.RequiresPermission
 
 fun isAccessibilityEnabled(context: Context): Boolean {
     val enabledServices = Settings.Secure.getString(
@@ -17,6 +19,7 @@ fun isAccessibilityEnabled(context: Context): Boolean {
     return enabledServices?.contains(serviceName) == true
 }
 
+@RequiresPermission(Manifest.permission.VIBRATE)
 fun lockScreen(context: Context, vibrate: Boolean = true) {
     if (!isAccessibilityEnabled(context)) {
         val intent = Intent(context, SettingsActivity::class.java).apply {

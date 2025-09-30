@@ -242,6 +242,9 @@ fun TapLockScreen() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    val timeoutInt = timeoutValue.toIntOrNull()
+                    val isValid = timeoutInt != null && timeoutInt in 100..500
+
                     TextField(
                         label = { Text(stringResource(R.string.timeout_label)) },
                         value = timeoutValue,
@@ -263,13 +266,13 @@ fun TapLockScreen() {
                     )
 
                     Button(
-                        enabled = timeoutValue.isNotEmpty(),
+                        enabled = isValid,
                         onClick = {
                             context.getSharedPreferences(R.string.shared_pref_name.toString(), Context.MODE_PRIVATE)
                                 .edit {
                                     putInt(
                                         context.getString(R.string.double_tap_timeout),
-                                        timeoutValue.toInt()
+                                        timeoutInt!!
                                     )
                                 }
                             Toast.makeText(context, context.getString(R.string.timeout_updated), Toast.LENGTH_SHORT).show()

@@ -12,14 +12,14 @@
     <string name="accessibility_service">Accessibility Service</string>
     <string name="timeout_updated">Timeout updated</string>
     <string name="update">Update</string>
-    <string name="timeout_label">Double Tap Timeout (ms)</string>
+    <string name="timeout_label">Double Tap Timeout\n(ms; min 100 - max 500)</string>
     <string name="clear_value">Clear</string>
     <string name="settings_label">Settings</string>
     <string name="enable">Enable</string>
     <string name="enabled">Enabled</string>
     <string name="accessibility_permission_title">Accessibility Permission Required</string>
     <string name="accessibility_permission_description">TapLock needs accessibility services to detect double taps and lock the screen. TapLock does not collect any other data or interaction that you have with your device.</string>
-    <string name="settings_access_instructions">Once TapLock has been enabled in the Accessibility settings, to open this panel again long-press the app icon and select the <b>TapLock Settings</b> shortcut.</string>
+    <string name="settings_access_instructions">Once TapLock has been enabled in the Accessibility settings, to open this panel again long-press the app icon and select the "TapLock Settings" shortcut.</string>
     <string name="agree">Agree</string>
     <string name="not_now">Not now</string>
     <string name="shortcut_settings_short">Settings</string>

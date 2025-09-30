@@ -56,7 +56,6 @@ class TapLockWidgetProvider : AppWidgetProvider() {
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
 
-    @RequiresPermission(Manifest.permission.VIBRATE)
     private fun handleWidgetTap(context: Context) {
         val prefs = context.getSharedPreferences(R.string.shared_pref_name.toString(), Context.MODE_PRIVATE)
         val timeout = prefs.getInt(context.getString(R.string.double_tap_timeout), 300)
