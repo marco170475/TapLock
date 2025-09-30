@@ -1,11 +1,13 @@
 package com.ah.taplock
 
+import android.Manifest
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
+import androidx.annotation.RequiresPermission
 
 class TapLockWidgetProvider : AppWidgetProvider() {
 
@@ -54,15 +56,14 @@ class TapLockWidgetProvider : AppWidgetProvider() {
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
 
+    @RequiresPermission(Manifest.permission.VIBRATE)
     private fun handleWidgetTap(context: Context) {
         val prefs = context.getSharedPreferences(R.string.shared_pref_name.toString(), Context.MODE_PRIVATE)
         val timeout = prefs.getInt(context.getString(R.string.double_tap_timeout), 300)
 
         val currentTime = System.currentTimeMillis()
         if (currentTime - lastTapTime < timeout) {
-            val accessibilityIntent = Intent(context, TapLockAccessibilityService::class.java)
-            accessibilityIntent.action = Intent.ACTION_SCREEN_OFF
-            context.startService(accessibilityIntent)
+            lockScreen(context)
         }
         lastTapTime = currentTime
     }
