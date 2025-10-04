@@ -286,6 +286,71 @@ fun TapLockScreen() {
             }
         }
 
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    "Vibration Settings",
+                    style = MaterialTheme.typography.titleMedium
+                )
+
+                val prefs = context.getSharedPreferences(
+                    R.string.shared_pref_name.toString(),
+                    Context.MODE_PRIVATE
+                )
+
+                var vibrateWidget by remember { mutableStateOf(prefs.getBoolean("vibrate_widget", false)) }
+                var vibrateTile by remember { mutableStateOf(prefs.getBoolean("vibrate_tile", false)) }
+                var vibrateLauncher by remember { mutableStateOf(prefs.getBoolean("vibrate_launcher", false)) }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(stringResource(R.string.pref_vibrate_widget), modifier = Modifier.weight(1f))
+                    androidx.compose.material3.Switch(
+                        checked = vibrateWidget,
+                        onCheckedChange = {
+                            vibrateWidget = it
+                            prefs.edit { putBoolean("vibrate_widget", it) }
+                        }
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(stringResource(R.string.pref_vibrate_tile), modifier = Modifier.weight(1f))
+                    androidx.compose.material3.Switch(
+                        checked = vibrateTile,
+                        onCheckedChange = {
+                            vibrateTile = it
+                            prefs.edit { putBoolean("vibrate_tile", it) }
+                        }
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(stringResource(R.string.pref_vibrate_launcher), modifier = Modifier.weight(1f))
+                    androidx.compose.material3.Switch(
+                        checked = vibrateLauncher,
+                        onCheckedChange = {
+                            vibrateLauncher = it
+                            prefs.edit { putBoolean("vibrate_launcher", it) }
+                        }
+                    )
+                }
+            }
+        }
+
         if (showDialog) {
             AlertDialog(
                 onDismissRequest = { showDialog = false },

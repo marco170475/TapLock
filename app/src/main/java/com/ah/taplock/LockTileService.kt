@@ -8,6 +8,6 @@ class LockTileService : TileService() {
     override fun onClick() {
         super.onClick()
 
-        lockScreen(applicationContext)
+        lockScreen(applicationContext, "tile")
     }
 }

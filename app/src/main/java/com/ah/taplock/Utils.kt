@@ -20,7 +20,7 @@ fun isAccessibilityEnabled(context: Context): Boolean {
 }
 
 @RequiresPermission(Manifest.permission.VIBRATE)
-fun lockScreen(context: Context, vibrate: Boolean = true) {
+fun lockScreen(context: Context, source: String) {
     if (!isAccessibilityEnabled(context)) {
         val intent = Intent(context, SettingsActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -33,6 +33,14 @@ fun lockScreen(context: Context, vibrate: Boolean = true) {
     val accessibilityIntent = Intent(context, TapLockAccessibilityService::class.java)
     accessibilityIntent.action = Intent.ACTION_SCREEN_OFF
     context.startService(accessibilityIntent)
+
+    val prefs = context.getSharedPreferences(R.string.shared_pref_name.toString(), Context.MODE_PRIVATE)
+    val vibrate = when (source) {
+        "widget" -> prefs.getBoolean("vibrate_widget", false)
+        "tile" -> prefs.getBoolean("vibrate_tile", false)
+        "launcher" -> prefs.getBoolean("vibrate_launcher", false)
+        else -> true
+    }
 
     if (vibrate) {
         val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

@@ -62,7 +62,7 @@ class TapLockWidgetProvider : AppWidgetProvider() {
 
         val currentTime = System.currentTimeMillis()
         if (currentTime - lastTapTime < timeout) {
-            lockScreen(context)
+            lockScreen(context, "widget")
         }
         lastTapTime = currentTime
     }
