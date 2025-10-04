@@ -28,5 +28,5 @@
     <string name="qs_tile_label">Lock Screen</string>
     <string name="pref_vibrate_widget">Vibration on Widget</string>
     <string name="pref_vibrate_tile">Vibration on Quick Tile</string>
-    <string name="pref_vibrate_launcher">Vibration on Shortcut/Launcher</string>
+    <string name="pref_vibrate_launcher">Vibration on App Icon</string>
 </resources>
