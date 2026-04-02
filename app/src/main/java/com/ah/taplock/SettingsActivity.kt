@@ -3,6 +3,7 @@ package com.ah.taplock
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -88,6 +89,11 @@ fun TapLockScreen() {
         mutableStateOf(isAccessibilityEnabled(context))
     }
 
+    var isBatteryOptimized by remember {
+        val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        mutableStateOf(!pm.isIgnoringBatteryOptimizations(context.packageName))
+    }
+
     var timeoutValue by remember { mutableStateOf("") }
     LaunchedEffect(Unit) {
         if (!isAccessibilityEnabled) {
@@ -118,6 +124,9 @@ fun TapLockScreen() {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
                 isAccessibilityEnabled = isAccessibilityEnabled(context)
+                
+                val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+                isBatteryOptimized = !pm.isIgnoringBatteryOptimizations(context.packageName)
 
                 showDialog = !isAccessibilityEnabled
             }
@@ -233,6 +242,41 @@ fun TapLockScreen() {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
+                    stringResource(R.string.battery_optimization_description),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        if (isBatteryOptimized) stringResource(R.string.battery_enabled)
+                        else stringResource(R.string.battery_disabled),
+                        modifier = Modifier.weight(1f)
+                    )
+                    Button(
+                        onClick = {
+                            context.startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
+                        }
+                    ) {
+                        Text(
+                            if (isBatteryOptimized) stringResource(R.string.battery_disable)
+                            else stringResource(R.string.battery_enable)
+                        )
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
                     stringResource(R.string.settings_label),
                     style = MaterialTheme.typography.titleMedium
                 )
@@ -311,7 +355,7 @@ fun TapLockScreen() {
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(stringResource(R.string.pref_vibrate_widget), modifier = Modifier.weight(1f))
+                    Text(stringResource(R.string.vibrate_on_widget), modifier = Modifier.weight(1f))
                     androidx.compose.material3.Switch(
                         checked = vibrateWidget,
                         onCheckedChange = {
@@ -325,7 +369,7 @@ fun TapLockScreen() {
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(stringResource(R.string.pref_vibrate_tile), modifier = Modifier.weight(1f))
+                    Text(stringResource(R.string.vibrate_on_tile), modifier = Modifier.weight(1f))
                     androidx.compose.material3.Switch(
                         checked = vibrateTile,
                         onCheckedChange = {
@@ -339,7 +383,7 @@ fun TapLockScreen() {
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(stringResource(R.string.pref_vibrate_launcher), modifier = Modifier.weight(1f))
+                    Text(stringResource(R.string.vibrate_on_launcher), modifier = Modifier.weight(1f))
                     androidx.compose.material3.Switch(
                         checked = vibrateLauncher,
                         onCheckedChange = {

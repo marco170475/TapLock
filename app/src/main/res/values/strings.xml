@@ -26,7 +26,12 @@
     <string name="shortcut_settings_long">TapLock Settings</string>
     <string name="shortcut_settings_disabled">Shortcut not available</string>
     <string name="qs_tile_label">Lock Screen</string>
-    <string name="pref_vibrate_widget">Vibration on Widget</string>
-    <string name="pref_vibrate_tile">Vibration on Quick Tile</string>
-    <string name="pref_vibrate_launcher">Vibration on App Icon</string>
+    <string name="vibrate_on_widget">Vibration on Widget</string>
+    <string name="vibrate_on_tile">Vibration on Quick Tile</string>
+    <string name="vibrate_on_launcher">Vibration on App Icon</string>
+    <string name="battery_enabled">Currently enabled</string>
+    <string name="battery_optimization_description">If the widget stops working after a while, try disabling battery optimization for this app. This allows the accessibility service to run more reliably in the background.</string>
+    <string name="battery_disable">Disable</string>
+    <string name="battery_disabled">Currently disabled</string>
+    <string name="battery_enable">Enable</string>
 </resources>
