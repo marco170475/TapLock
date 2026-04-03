@@ -34,4 +34,5 @@
     <string name="battery_disable">Disable</string>
     <string name="battery_disabled">Currently disabled</string>
     <string name="battery_enable">Enable</string>
+    <string name="flicker_protection">Flicker Protection</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.ah.taplock
 
 import android.accessibilityservice.AccessibilityService
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Handler
@@ -18,7 +19,14 @@ class TapLockAccessibilityService : AccessibilityService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == Intent.ACTION_SCREEN_OFF && !lockSequenceRunning) {
-            startScreenOffSequence()
+            val prefs = getSharedPreferences(getString(R.string.shared_pref_name), Context.MODE_PRIVATE)
+            val flickerProtection = prefs.getBoolean("flicker_protection", false)
+
+            if (!flickerProtection) {
+                performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN)
+            } else {
+                startScreenOffSequence()
+            }
         }
         return super.onStartCommand(intent, flags, startId)
     }
@@ -135,9 +143,9 @@ class TapLockAccessibilityService : AccessibilityService() {
     }
 
     private companion object {
-        const val OVERLAY_BEFORE_LOCK_DELAY_MS = 400L
-        const val OVERLAY_CLEANUP_DELAY_MS = 150L
-        const val OVERLAY_FADE_IN_DURATION_MS = 400L
+        const val OVERLAY_BEFORE_LOCK_DELAY_MS = 350L
+        const val OVERLAY_CLEANUP_DELAY_MS = 350L
+        const val OVERLAY_FADE_IN_DURATION_MS = 350L
         const val FAILSAFE_CLEANUP_DELAY_MS = 1_000L
     }
 

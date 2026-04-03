@@ -101,7 +101,7 @@ fun TapLockScreen() {
         }
 
         timeoutValue = context
-            .getSharedPreferences(R.string.shared_pref_name.toString(), Context.MODE_PRIVATE)
+            .getSharedPreferences(context.getString(R.string.shared_pref_name), Context.MODE_PRIVATE)
             .getInt(context.getString(R.string.double_tap_timeout), 300)
             .toString()
     }
@@ -312,7 +312,7 @@ fun TapLockScreen() {
                     Button(
                         enabled = isValid,
                         onClick = {
-                            context.getSharedPreferences(R.string.shared_pref_name.toString(), Context.MODE_PRIVATE)
+                            context.getSharedPreferences(context.getString(R.string.shared_pref_name), Context.MODE_PRIVATE)
                                 .edit {
                                     putInt(
                                         context.getString(R.string.double_tap_timeout),
@@ -328,28 +328,21 @@ fun TapLockScreen() {
                     }
                 }
             }
-        }
 
-        Card(
-            modifier = Modifier.fillMaxWidth()
-        ) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(
-                    "Vibration Settings",
-                    style = MaterialTheme.typography.titleMedium
-                )
-
                 val prefs = context.getSharedPreferences(
-                    R.string.shared_pref_name.toString(),
+                    context.getString(R.string.shared_pref_name),
                     Context.MODE_PRIVATE
                 )
 
-                var vibrateWidget by remember { mutableStateOf(prefs.getBoolean("vibrate_widget", false)) }
-                var vibrateTile by remember { mutableStateOf(prefs.getBoolean("vibrate_tile", false)) }
-                var vibrateLauncher by remember { mutableStateOf(prefs.getBoolean("vibrate_launcher", false)) }
+                var vibrateWidget by remember { mutableStateOf(prefs.getBoolean("vibrate_on_widget", false)) }
+                var vibrateTile by remember { mutableStateOf(prefs.getBoolean("vibrate_on_tile", false)) }
+                var vibrateLauncher by remember { mutableStateOf(prefs.getBoolean("vibrate_on_launcher", false)) }
+                var flickerProtection by remember { mutableStateOf(prefs.getBoolean("flicker_protection", false)) }
+
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -360,7 +353,7 @@ fun TapLockScreen() {
                         checked = vibrateWidget,
                         onCheckedChange = {
                             vibrateWidget = it
-                            prefs.edit { putBoolean("vibrate_widget", it) }
+                            prefs.edit { putBoolean("vibrate_on_widget", it) }
                         }
                     )
                 }
@@ -374,7 +367,7 @@ fun TapLockScreen() {
                         checked = vibrateTile,
                         onCheckedChange = {
                             vibrateTile = it
-                            prefs.edit { putBoolean("vibrate_tile", it) }
+                            prefs.edit { putBoolean("vibrate_on_tile", it) }
                         }
                     )
                 }
@@ -388,7 +381,21 @@ fun TapLockScreen() {
                         checked = vibrateLauncher,
                         onCheckedChange = {
                             vibrateLauncher = it
-                            prefs.edit { putBoolean("vibrate_launcher", it) }
+                            prefs.edit { putBoolean("vibrate_on_launcher", it) }
+                        }
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(stringResource(R.string.flicker_protection), modifier = Modifier.weight(1f))
+                    androidx.compose.material3.Switch(
+                        checked = flickerProtection,
+                        onCheckedChange = {
+                            flickerProtection = it
+                            prefs.edit { putBoolean("flicker_protection", it) }
                         }
                     )
                 }

@@ -34,11 +34,11 @@ fun lockScreen(context: Context, source: String) {
     accessibilityIntent.action = Intent.ACTION_SCREEN_OFF
     context.startService(accessibilityIntent)
 
-    val prefs = context.getSharedPreferences(R.string.shared_pref_name.toString(), Context.MODE_PRIVATE)
+    val prefs = context.getSharedPreferences(context.getString(R.string.shared_pref_name), Context.MODE_PRIVATE)
     val vibrate = when (source) {
-        "widget" -> prefs.getBoolean("vibrate_widget", false)
-        "tile" -> prefs.getBoolean("vibrate_tile", false)
-        "launcher" -> prefs.getBoolean("vibrate_launcher", false)
+        "widget" -> prefs.getBoolean("vibrate_on_widget", false)
+        "tile" -> prefs.getBoolean("vibrate_on_tile", false)
+        "launcher" -> prefs.getBoolean("vibrate_on_launcher", false)
         else -> true
     }
 
